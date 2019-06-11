@@ -1,0 +1,55 @@
+version: "3"
+services:
+  master: 
+    image: mysql:8.0
+    restart: unless-stopped
+    env_file:
+      - env/base.env
+      - env/master.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MASTER_MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    networks:
+       backend:
+          ipv4_address: 172.31.0.11
+    volumes:
+      - ./master.cnf:/etc/mysql/conf.d/master.cnf
+      - mysql-master-data:/var/lib/mysql
+      - ./init-db/init-master.sh:/docker-entrypoint-initdb.d/init-master.sh
+    command: [
+      "--server-id=${MASTER_SERVER_ID}"
+    ]
+  node1:
+    image: mysql
+    restart: unless-stopped
+    env_file:
+      - env/base.env
+      - env/node.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${NODE_MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3307:3306"
+    networks:
+       backend:
+          ipv4_address: 172.31.0.21
+    depends_on:
+      - master
+    volumes:
+      - ./node.cnf:/etc/mysql/conf.d/node.cnf
+      - mysql-node1-data:/var/lib/mysql
+    command: [
+      "--server-id=${NODE_1_SERVER_ID}"
+    ]
+networks:
+  backend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.0.0/24
+volumes:
+  mysql-master-data:
+  mysql-node1-data:
+  mysql-node2_data:

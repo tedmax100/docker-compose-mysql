@@ -1,0 +1,8 @@
+[mysqld]
+log-bin=mysql-bin
+binlog-ignore-db=mysql
+binlog_format=mixed
+binlog_cache_size=1M
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+sync_binlog=1
