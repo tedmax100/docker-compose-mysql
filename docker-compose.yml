@@ -16,7 +16,7 @@ services:
        backend:
           ipv4_address: 172.31.0.11
     volumes:
-      - ./master.cnf:/etc/mysql/conf.d/master.cnf
+      - ./master.cnf:/etc/mysql/conf.d/mysqld.cnf
       - mysql-master-data:/var/lib/mysql
       - ./init-db/init-master.sh:/docker-entrypoint-initdb.d/init-master.sh
     command: [
@@ -38,7 +38,7 @@ services:
     depends_on:
       - master
     volumes:
-      - ./node.cnf:/etc/mysql/conf.d/node.cnf
+      - ./node.cnf:/etc/mysql/conf.d/mysqld.cnf
       - mysql-node1-data:/var/lib/mysql
       - ./init-db/init-node.sh:/docker-entrypoint-initdb.d/init-node.sh
     command: [
