@@ -53,4 +53,3 @@ networks:
 volumes:
   mysql-master-data:
   mysql-node1-data:
-  mysql-node2_data:
