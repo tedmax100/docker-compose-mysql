@@ -40,6 +40,7 @@ services:
     volumes:
       - ./node.cnf:/etc/mysql/conf.d/node.cnf
       - mysql-node1-data:/var/lib/mysql
+      - ./init-db/init-node.sh:/docker-entrypoint-initdb.d/init-node.sh
     command: [
       "--server-id=${NODE_1_SERVER_ID}"
     ]
