@@ -1,7 +1,7 @@
 version: "3"
 services:
   master: 
-    image: mysql:8.0
+    image: mysql:${TAG}
     restart: unless-stopped
     env_file:
       - env/base.env
@@ -23,7 +23,7 @@ services:
       "--server-id=${MASTER_SERVER_ID}"
     ]
   node1:
-    image: mysql
+    image: mysql:${TAG}
     restart: unless-stopped
     env_file:
       - env/base.env
