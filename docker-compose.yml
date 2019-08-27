@@ -8,8 +8,11 @@ services:
       - env/master.env
     environment:
       - MYSQL_ROOT_PASSWORD=${MASTER_MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=rd_backend_code
+      - MYSQL_PASSWORD=1qaz!QAZ
+      - MYSQL_DATABASE=sport_local_hao
     ports:
-      - "3306:3306"
+      - "4006:3306"
     expose:
       - "3306"
     networks:

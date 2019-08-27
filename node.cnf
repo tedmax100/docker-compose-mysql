@@ -4,3 +4,5 @@ collation-server=utf8mb4_unicode_ci
 relay-log=mysql-node-relay-bin
 log-bin=mysql-bin
 log-slave-updates=1
+max_connections=1000
+long_query_time=0.5
