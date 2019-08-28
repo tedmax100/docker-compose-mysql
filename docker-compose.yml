@@ -23,7 +23,8 @@ services:
       - mysql-master-data:/var/lib/mysql
       - ./init-db/init-master.sh:/docker-entrypoint-initdb.d/init-master.sh
     command: [
-      "--server-id=${MASTER_SERVER_ID}"
+      "--server-id=${MASTER_SERVER_ID}",
+      "--default-authentication-plugin=mysql_native_password"
     ]
   node1:
     image: mysql:${TAG}
@@ -33,6 +34,9 @@ services:
       - env/node.env
     environment:
       - MYSQL_ROOT_PASSWORD=${NODE_MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=rd_backend_code
+      - MYSQL_PASSWORD=1qaz!QAZ
+      - MYSQL_DATABASE=sport_local_hao
     ports:
       - "3307:3306"
     networks:
@@ -45,7 +49,8 @@ services:
       - mysql-node1-data:/var/lib/mysql
       - ./init-db/init-node.sh:/docker-entrypoint-initdb.d/init-node.sh
     command: [
-      "--server-id=${NODE_1_SERVER_ID}"
+      "--server-id=${NODE_1_SERVER_ID}",
+      "--default-authentication-plugin=mysql_native_password"
     ]
 networks:
   backend:
